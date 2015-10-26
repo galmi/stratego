@@ -1,4 +1,6 @@
-require("babel/register");
+require("babel/register")({
+  stage: 0
+});
 
 var express = require('express');
 var path = require('path');
