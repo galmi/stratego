@@ -1,6 +1,5 @@
 'use strict';
 
-import throwIfMissing from './missingParam';
 import Figure from './Figure';
 
 export default class Board {
@@ -11,16 +10,16 @@ export default class Board {
    * @private
    */
   _map = [
-    [1, 1,  1,  1, 1, 1,  1,  1, 1, 1], // BEGIN Side 1
-    [1, 1,  1,  1, 1, 1,  1,  1, 1, 1],
-    [1, 1,  1,  1, 1, 1,  1,  1, 1, 1],
-    [1, 1,  1,  1, 1, 1,  1,  1, 1, 1], // END Side 1
+    [0b010000, 0b010000,  0b010000,  0b010000, 0b010000, 0b010000,  0b010000,  0b010000, 0b010000, 0b010000], // BEGIN Side 1
+    [0b010000, 0b010000,  0b010000,  0b010000, 0b010000, 0b010000,  0b010000,  0b010000, 0b010000, 0b010000],
+    [0b010000, 0b010000,  0b010000,  0b010000, 0b010000, 0b010000,  0b010000,  0b010000, 0b010000, 0b010000],
+    [0b010000, 0b010000,  0b010000,  0b010000, 0b010000, 0b010000,  0b010000,  0b010000, 0b010000, 0b010000], // END Side 1
     [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
     [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
-    [2, 2,  2,  2, 2, 2,  2,  2, 2, 2], // BEGIN Side 2
-    [2, 2,  2,  2, 2, 2,  2,  2, 2, 2],
-    [2, 2,  2,  2, 2, 2,  2,  2, 2, 2],
-    [2, 2,  2,  2, 2, 2,  2,  2, 2, 2]  // END Side 2
+    [0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000], // BEGIN Side 2
+    [0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000],
+    [0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000],
+    [0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000]  // END Side 2
   ];
 
   constructor() {};
@@ -86,7 +85,7 @@ export default class Board {
    * @param rank
    * @returns {number}
    */
-  static getCell(side, rank) {
+  static getCellValue(side, rank) {
     return Board.getBinSide(side) | rank;
   }
 
@@ -127,30 +126,28 @@ export default class Board {
   }
 
   /**
-   * Fill map by one side
-   * @param map
-   * @param side
+   * Get Cell value by coords
+   * @param x
+   * @param y
+   * @returns {*}
    */
-  fillSideMap(side = throwIfMissing(), map = throwIfMissing()) {
-    Board.checkSide(side);
-    Board.checkFigures(map);
-
-    var beginItem = (side == 1) ? 0 : 6;
-    for (var i in map) {
-      this._map[i + beginItem] = map[i];
-    }
+  getCell(x, y) {
+    return this._map[x][y];
   }
 
   /**
-   *
-   * @param map
+   * Fill map by one side
    * @param side
+   * @param map
    * @returns {boolean}
    */
-  static checkFigures(map, side) {
-    if (false) {
-      throw 'Error';
-    }
+  fillSideMap(side, map) {
+    Board.checkSide(side);
+
+    var beginRow = (side == 1) ? 0 : 6;
+    map.forEach(function(mapRow, rowIndex) {
+      this._map[rowIndex + beginRow] = mapRow.map(item => Board.getCellValue(side, item));
+    }, this);
     return true;
   }
 
@@ -159,15 +156,20 @@ export default class Board {
    * @param side
    * @returns {Array}
    */
-  getMap(side) {
+  getSideMap(side) {
     var sideMap = [];
     this._map.forEach((row, i) => {
       sideMap.push([]);
       sideMap[i] = [];
       row.forEach(val => {
-        var digit = parseInt(val.toString()[0]);
-        if (val >= 10 && digit != side) {
-          sideMap[i].push(digit);
+        var cellSide = Board.getDecSide(val);
+        try {
+          Board.checkSide(cellSide);
+        } catch (e) {
+          cellSide = side;
+        }
+        if (cellSide != side) {
+          sideMap[i].push(Board.getBinSide(cellSide));
         } else {
           sideMap[i].push(val);
         }
