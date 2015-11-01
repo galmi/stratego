@@ -359,4 +359,44 @@ export default class Board {
 
     return errors;
   }
+
+  /**
+   * Check move is allowed
+   * @param xFrom
+   * @param yFrom
+   * @param xTo
+   * @param yTo
+   * @returns {boolean}
+   */
+  canMove(xFrom, yFrom, xTo, yTo) {
+    var can = false;
+    var toCell = [xTo, yTo];
+    var allowedMoves = this.getFigureMoves(xFrom, yFrom);
+    allowedMoves.forEach(function (move) {
+      if (JSON.stringify(toCell) == JSON.stringify(move)) {
+        can = true;
+      }
+    });
+
+    return can;
+  }
+
+  /**
+   * Set value of cell
+   * @param x
+   * @param y
+   * @param cell
+   * @returns {*}
+   */
+  setCell(x, y, cell) {
+    return this._map[y][x] = cell;
+  }
+
+  makeMove(xFrom, yFrom, xTo, yTo) {
+    if (this.canMove(xFrom, yFrom, xTo, yTo)) {
+      var cell = this.getCell(xFrom, yFrom);
+      this.setCell(xTo, yTo, cell);
+      this.setCell(xFrom, yFrom, 0);
+    }
+  }
 }

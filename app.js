@@ -1,6 +1,4 @@
-require("babel/register")({
-  stage: 0
-});
+require("./babelhook.js");
 
 var express = require('express');
 var path = require('path');
