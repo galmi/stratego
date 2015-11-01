@@ -300,4 +300,63 @@ export default class Board {
     }
     return null;
   }
+
+  /**
+   * TODO need useful format
+   * @returns {Array}
+   */
+  checkStartBoard() {
+    var figuresLimit = {
+      0:  Board.getFigure(0).amount,
+      1:  Board.getFigure(1).amount,
+      2:  Board.getFigure(2).amount,
+      3:  Board.getFigure(3).amount,
+      4:  Board.getFigure(4).amount,
+      5:  Board.getFigure(5).amount,
+      6:  Board.getFigure(6).amount,
+      7:  Board.getFigure(7).amount,
+      8:  Board.getFigure(8).amount,
+      9:  Board.getFigure(9).amount,
+      10: Board.getFigure(10).amount,
+      11: Board.getFigure(11).amount
+    };
+    /**
+     * 1 level - side
+     * 2 level - rank
+     * value - count
+     * @type {Array}
+     */
+    var boardFigures = {
+      1: new Array(12).fill(0),
+      2: new Array(12).fill(0)
+    };
+
+    //Collect count of each figures on board
+    this._map.forEach((row, i) => {
+      row.forEach(cell => {
+        var side = Board.getDecSide(cell);
+        if (side>0) {
+          var rank = Board.getRank(cell);
+          boardFigures[side][rank]++;
+        }
+      });
+    });
+
+    var errors = [];
+    //Check each side figures
+    boardFigures[1].forEach((count, rank) => {
+      var side = 1;
+      if (figuresLimit[rank] != count) {
+        errors.push(`${side}. Rank ${rank}, actual ${count}, excepted ${figuresLimit[rank]}}`);
+      }
+    });
+    boardFigures[2].forEach((count, rank) => {
+      var side = 2;
+      if (figuresLimit[rank] != count) {
+        errors.push(`${side}. Rank ${rank}, actual ${count}, excepted ${figuresLimit[rank]}}`);
+      }
+    });
+
+    return errors;
+  }
 }
