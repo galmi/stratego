@@ -13,7 +13,7 @@ export default class Captain extends Abstract{
     this._name = 'Captain';
     this._icon = 'captain.png';
     this._move = 1;
-    this._rang = 6;
+    this._rank = 6;
     this._amount = 4;
   }
 

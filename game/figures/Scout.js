@@ -14,7 +14,7 @@ export default class Scout extends Abstract{
     this._icon = 'scout.png';
     this._move = 10;
     this._amount = 8;
-    this._rang = 2;
+    this._rank = 2;
   }
 
 }

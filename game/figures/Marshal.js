@@ -13,7 +13,7 @@ export default class Marshal extends Abstract{
     this._name = 'Marshal';
     this._icon = 'marshal.png';
     this._move = 1;
-    this._rang = 10;
+    this._rank = 10;
     this._amount = 1;
   }
 

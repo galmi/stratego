@@ -13,7 +13,7 @@ export default class Major extends Abstract{
     this._name = 'Major';
     this._icon = 'major.png';
     this._move = 1;
-    this._rang = 7;
+    this._rank = 7;
     this._amount = 3;
   }
 

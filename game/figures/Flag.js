@@ -13,7 +13,7 @@ export default class Flag extends Abstract{
     this._name = 'Flag';
     this._icon = 'flag.png';
     this._move = 0;
-    this._rang = 0;
+    this._rank = 0;
     this._amount = 1;
   }
 

@@ -13,7 +13,7 @@ export default class General extends Abstract{
     this._name = 'General';
     this._icon = 'general.png';
     this._move = 1;
-    this._rang = 9;
+    this._rank = 9;
     this._amount = 1;
   }
 

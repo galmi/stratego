@@ -14,7 +14,7 @@ export default class Miner extends Abstract{
     this._icon = 'miner.png';
     this._move = 1;
     this._amount = 5;
-    this._rang = 3;
+    this._rank = 3;
   }
 
 }

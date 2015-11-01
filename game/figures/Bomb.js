@@ -13,7 +13,7 @@ export default class Bomb extends Abstract{
     this._name = 'Bomb';
     this._icon = 'bomb.png';
     this._move = 0;
-    this._rang = 11;
+    this._rank = 11;
     this._amount = 6;
   }
 

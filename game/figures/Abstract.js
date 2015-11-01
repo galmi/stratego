@@ -5,7 +5,7 @@
  * @property {string} _name     - Название
  * @property {number} _move     - Количество клеток за ход
  * @property {number} _amount   - Максимальное количетсво на доске
- * @property {number} _rang     - Ранг
+ * @property {number} _rank     - Ранг
  * @property {number} _side     - Сторона за которую играет фигура
  */
 export default class Abstract {
@@ -14,7 +14,7 @@ export default class Abstract {
   _icon;
   _move;
   _amount;
-  _rang;
+  _rank;
   _side;
 
   constructor(side) {
@@ -65,10 +65,10 @@ export default class Abstract {
   }
 
   /**
-   * @returns {number} _rang
+   * @returns {number} _rank
    */
   get rang() {
-    return this._rang;
+    return this._rank;
   }
 
   /**
