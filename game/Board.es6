@@ -121,7 +121,7 @@ export default class Board {
       case 11:
         return new Figure.Bomb();
       default:
-        throw new Error(`Figure with rank "${rank}" not found`);
+        return null;
     }
   }
 
@@ -132,7 +132,7 @@ export default class Board {
    * @returns {*}
    */
   getCell(x, y) {
-    return this._map[x][y];
+    return this._map[y][x];
   }
 
   /**
@@ -178,5 +178,92 @@ export default class Board {
 
     return sideMap;
   }
+
+  /**
+   * Get allowed cells for next step
+   * @param x
+   * @param y
+   */
+  getFigureMoves(x, y) {
+    var cell = this.getCell(x, y);
+    var side = Board.getDecSide(cell);
+    var figure = Board.getFigure(Board.getRank(cell));
+
+    var countSteps = figure.move;
+
+    var allowedCells = [];
+    var newX, newY, newCell, newCellSide, i;
+    //move -x
+    newX = x;
+    for (i = 1; i <= countSteps; i++) {
+      newX--;
+      if (newX >= 0) {
+        newCell = this.getCell(newX, y);
+        newCellSide = Board.getDecSide(newCell);
+        if (newCell!=-1 && (newCellSide == 0 || newCellSide != side)) {
+          allowedCells.push([newX, y]);
+        }
+        if (newCellSide != 0) {
+          i = countSteps;
+        }
+      } else {
+        break;
+      }
+    }
+    //move +x
+    newX = x;
+    for (i = 1; i <= countSteps; i++) {
+      newX++;
+      if (newX < this._map.length) {
+        newCell = this.getCell(newX, y);
+        newCellSide = Board.getDecSide(newCell);
+        if (newCell!=-1 && (newCellSide == 0 || newCellSide != side)) {
+          allowedCells.push([newX, y]);
+        }
+        if (newCellSide != 0) {
+          i = countSteps;
+        }
+      } else {
+        break;
+      }
+    }
+    //move -y
+    newY = y;
+    for (i = 1; i <= countSteps; i++) {
+      newY--;
+      if (newY >= 0) {
+        newCell = this.getCell(x, newY);
+        newCellSide = Board.getDecSide(newCell);
+        if (newCell!=-1 && (newCellSide == 0 || newCellSide != side)) {
+          allowedCells.push([x, newY]);
+        }
+        if (newCellSide != 0) {
+          i = countSteps;
+        }
+      } else {
+        break;
+      }
+    }
+    //move +y
+    newY = y;
+    for (i = 1; i <= countSteps; i++) {
+      newY++;
+      if (newY < this._map.length) {
+        newCell = this.getCell(x, newY);
+        newCellSide = Board.getDecSide(newCell);
+        if (newCell!=-1 && (newCellSide == 0 || newCellSide != side)) {
+          allowedCells.push([x, newY]);
+        }
+        if (newCellSide != 0) {
+          i = countSteps;
+        }
+      } else {
+        break;
+      }
+    }
+
+    return allowedCells;
+  }
+
 
 }

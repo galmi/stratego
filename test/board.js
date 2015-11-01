@@ -196,6 +196,33 @@ describe('Board', function(){
       var sideMap = board.getSideMap(2);
       assert.deepEqual(sideMap, side2map, 'Not equals');
     });
+  });
 
+  describe('getFigureMoves', function() {
+    var defaultMap = [
+      [ 27, 27, 27, 18, 26, 17, 17, 17, 17, 17 ],
+      [ 26, 16, 25, 17, 25, 17, 17, 17, 17, 17 ],
+      [ 27, 27, 26, 23, 29, 17, 17, 17, 17, 17 ],
+      [ 27, 25, 22, 18, 34, 17, 17, 17, 17, 17 ],
+      [ 0,   0, -1, -1,  0,  0, -1, -1,  0,  0 ],
+      [ 0,   0, -1, -1,  0,  0, -1, -1,  0,  0 ],
+      [ 43, 43, 43, 34, 42, 33, 33, 33, 33, 33 ],
+      [ 42, 32, 41, 33, 41, 33, 33, 33, 33, 33 ],
+      [ 43, 43, 42, 39, 45, 33, 33, 33, 33, 33 ],
+      [ 44, 44, 38, 34, 41, 33, 33, 33, 33, 33 ]
+    ];
+
+    it('Get figure moves', function() {
+      var board = new Board();
+      board.map = defaultMap;
+      var moves = board.getFigureMoves(1, 3);
+      assert.deepEqual(moves, [ [ 1, 4 ] ]);
+
+      moves = board.getFigureMoves(0, 3);
+      assert.deepEqual(moves, [  ]);
+
+      moves = board.getFigureMoves(4, 3);
+      assert.deepEqual(moves, [ [ 3, 3 ], [ 5, 3 ], [ 4, 2 ], [ 4, 4 ], [ 4, 5 ] ]);
+    });
   });
 });
