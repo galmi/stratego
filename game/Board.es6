@@ -265,5 +265,39 @@ export default class Board {
     return allowedCells;
   }
 
-
+  /**
+   * Check if sides have moves
+   * null - both players exist moves
+   * -1 - draw
+   * 1 - side 1 is winner
+   * 2- side 2 is winner
+   * @returns {number}
+   */
+  checkEndGame() {
+    var movesExists = {
+      1: 0,
+      2: 0
+    };
+    this._map.forEach((row, i) => {
+      row.forEach(cell => {
+        var side = Board.getDecSide(cell);
+        if (side>0) {
+          var figure = Board.getFigure(Board.getRank(cell));
+          if (figure.move > 0) {
+            movesExists[side] = 1;
+          }
+        }
+      });
+    });
+    if (movesExists[1] == 0 && movesExists[2] == 0) {
+      return -1;
+    }
+    if (movesExists[1] == 0) {
+      return 2;
+    }
+    if (movesExists[2] == 0) {
+      return 1;
+    }
+    return null;
+  }
 }

@@ -225,4 +225,83 @@ describe('Board', function(){
       assert.deepEqual(moves, [ [ 3, 3 ], [ 5, 3 ], [ 4, 2 ], [ 4, 4 ], [ 4, 5 ] ]);
     });
   });
+
+  describe('checkEndGame', function () {
+    it('Draw', function () {
+      var defaultMap = [
+        [0, 0b011011, 0b010000, 0b011011, 0, 0, 0, 0, 0, 0], // BEGIN Side 1
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // END Side 1
+        [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
+        [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // BEGIN Side 2
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0b101011, 0b100000, 0b101011, 0, 0, 0, 0, 0, 0]  // END Side 2
+      ];
+      var board = new Board();
+      board.map = defaultMap;
+      var isEndGame = board.checkEndGame();
+      assert.equal(isEndGame, -1);
+    });
+
+    it('Side 1 is win', function () {
+      var defaultMap = [
+        [0, 0b011011, 0b010000, 0b011011, 0b011001, 0, 0, 0, 0, 0], // BEGIN Side 1
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // END Side 1
+        [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
+        [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // BEGIN Side 2
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0b101011, 0b100000, 0b101011, 0, 0, 0, 0, 0, 0]  // END Side 2
+      ];
+      var board = new Board();
+      board.map = defaultMap;
+      var isEndGame = board.checkEndGame();
+      assert.equal(isEndGame, 1);
+    });
+
+    it('Side 2 is win', function () {
+      var defaultMap = [
+        [0, 0b011011, 0b010000, 0b011011, 0, 0, 0, 0, 0, 0], // BEGIN Side 1
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // END Side 1
+        [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
+        [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // BEGIN Side 2
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0b101011, 0b100000, 0b101011, 0b101001, 0, 0, 0, 0, 0]  // END Side 2
+      ];
+      var board = new Board();
+      board.map = defaultMap;
+      var isEndGame = board.checkEndGame();
+      assert.equal(isEndGame, 2);
+    });
+
+    it('Players have moves', function () {
+      var defaultMap = [
+        [0, 0b011011, 0b010000, 0b011011, 0b011001, 0, 0, 0, 0, 0], // BEGIN Side 1
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // END Side 1
+        [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
+        [0, 0, -1, -1, 0, 0, -1, -1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // BEGIN Side 2
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0b101011, 0b100000, 0b101011, 0b101001, 0, 0, 0, 0, 0]  // END Side 2
+      ];
+      var board = new Board();
+      board.map = defaultMap;
+      var isEndGame = board.checkEndGame();
+      assert.equal(isEndGame, null);
+    });
+
+  });
 });
