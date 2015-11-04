@@ -22,6 +22,13 @@ export default class Board {
     [0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000,  0b100000,  0b100000, 0b100000, 0b100000]  // END Side 2
   ];
 
+  /**
+   * What side making move
+   * @type {number}
+   * @private
+   */
+  _side = 1;
+
   constructor() {};
 
   /**
@@ -39,6 +46,34 @@ export default class Board {
   set map(value) {
     this._map = value;
   };
+
+  /**
+   * Getter side
+   * @returns {number}
+   */
+  get side() {
+    return this._side;
+  }
+
+  /**
+   * Setter side
+   * @param {number} value
+   */
+  set side(value) {
+    if (value==1 || value==2) {
+      this._side = value;
+    } else {
+      throw new Error('Valid side is 1 or 2');
+    }
+  }
+
+  changeSide() {
+    if (this._side == 1) {
+      this.side = 2;
+    } else if (this._side == 2) {
+      this.side = 1;
+    }
+  }
 
   /**
    * Check allowed values of side
@@ -271,14 +306,14 @@ export default class Board {
    * -1 - draw
    * 1 - side 1 is winner
    * 2- side 2 is winner
-   * @returns {number}
+   * @returns {number|null}
    */
   checkEndGame() {
     var movesExists = {
       1: 0,
       2: 0
     };
-    this._map.forEach((row, i) => {
+    this._map.forEach((row) => {
       row.forEach(cell => {
         var side = Board.getDecSide(cell);
         if (side>0) {
@@ -332,7 +367,7 @@ export default class Board {
     };
 
     //Collect count of each figures on board
-    this._map.forEach((row, i) => {
+    this._map.forEach((row) => {
       row.forEach(cell => {
         var side = Board.getDecSide(cell);
         if (side>0) {
@@ -371,6 +406,12 @@ export default class Board {
   canMove(xFrom, yFrom, xTo, yTo) {
     var can = false;
     var toCell = [xTo, yTo];
+
+    //Can not move if it is not your figure
+    var cell = this.getCell(xFrom, yFrom);
+    if (Board.getDecSide(cell) != this._side) {
+      return false;
+    }
     var allowedMoves = this.getFigureMoves(xFrom, yFrom);
     allowedMoves.forEach(function (move) {
       if (JSON.stringify(toCell) == JSON.stringify(move)) {
@@ -392,6 +433,13 @@ export default class Board {
     return this._map[y][x] = cell;
   }
 
+  /**
+   * Figure make move to another cell
+   * @param xFrom
+   * @param yFrom
+   * @param xTo
+   * @param yTo
+   */
   makeMove(xFrom, yFrom, xTo, yTo) {
     if (this.canMove(xFrom, yFrom, xTo, yTo)) {
       var cell = this.getCell(xFrom, yFrom);

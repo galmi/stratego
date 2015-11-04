@@ -461,10 +461,21 @@ describe('Board', function(){
         [0b101000, 0b101000, 0b101001, 0b101010, 0b101011, 0b101011, 0b101011, 0b101011, 0b101011, 0b101011] // END Side 2
       ];
       var board = new Board();
+      board.changeSide();
       board.map = defaultMap;
       board.makeMove(1, 6, 1, 3);
 
       assert.deepEqual(board.map, expectedMap);
+    });
+  });
+
+  describe('changeSide', function() {
+    it('Change side', function() {
+      var board = new Board();
+      assert.equal(board.side, 1, 'Default side must be 1');
+
+      board.changeSide();
+      assert.equal(board.side, 2, 'Changed side to 2');
     });
   });
 });

@@ -13,7 +13,7 @@ import Scout from './figures/Scout';
 import Sergeant from './figures/Sergeant';
 import Spy from './figures/Spy';
 
-module.exports = {
+export default {
   Bomb: Bomb,
   Captain: Captain,
   Colonel: Colonel,
