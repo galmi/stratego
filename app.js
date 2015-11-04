@@ -26,10 +26,13 @@ fs.readdirSync(pass.join(__dirname, 'app/models')).forEach(function (file) {
   if (~file.indexOf('.js')) require(pass.join(__dirname, 'app/models', file));
 });
 
+// Bootstrap passport config
+require('./config/passport')(passport);
+
 // Bootstrap application settings
-require('./config/express')(app);
+require('./config/express')(app, passport);
 
 // Bootstrap routes
-require('./config/routes')(app);
+require('./config/routes')(app, passport);
 
 module.exports = app;

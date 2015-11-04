@@ -2,6 +2,7 @@
   "db": "mongodb://localhost/stratego",
   "socials": ["Facebook", "Vkontakte"],
   "Facebook": {
-    "appId": "116582445370688"
+    "appId": "116582445370688",
+    "appSecret": "4f1ede011d3bd53bdd3c8892d72d7127"
   }
 }

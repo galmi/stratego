@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-module.exports = function (app) {
+module.exports = function (app, passport) {
 
 // view engine setup
   app.set('views', path.join(__app, 'views'));
@@ -18,5 +18,9 @@ module.exports = function (app) {
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
+
+  // use passport session
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 };
