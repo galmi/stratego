@@ -1,0 +1,7 @@
+{
+  "db": "mongodb://localhost/stratego",
+  "socials": ["Facebook", "Vkontakte"],
+  "Facebook": {
+    "appId": "116582445370688"
+  }
+}

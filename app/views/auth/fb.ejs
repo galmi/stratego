@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <!--<script src="/socket.io/socket.io.js"></script>-->
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '<%= appId %>',
+        xfbml      : true,
+        version    : 'v2.5'
+      });
+
+      // ADD ADDITIONAL FACEBOOK CODE HERE
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+</head>
+<body>
+<h1><%= title %></h1>
+<p>Welcome to <%= title %></p>
+
+</body>
+</html>

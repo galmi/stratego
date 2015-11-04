@@ -1,6 +1,6 @@
 'use strict';
-import Board from '../game/Board';
-import Figure from '../game/Figure';
+var Board = require("Board");
+import Figure from "Figure";
 
 var assert = require('assert');
 describe('Board', function(){
