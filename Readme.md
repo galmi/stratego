@@ -1,1 +1,1 @@
-[![Build Status](https://travis-ci.org/galmi/stratego.svg)](https://travis-ci.org/galmi/stratego) [![Coverage Status](https://coveralls.io/repos/galmi/stratego/badge.svg?branch=master&service=github)](https://coveralls.io/github/galmi/stratego?branch=master)
+[![Build Status](https://travis-ci.org/galmi/stratego.svg)](https://travis-ci.org/galmi/stratego)
